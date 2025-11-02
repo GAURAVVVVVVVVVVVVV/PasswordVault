@@ -1,3 +1,4 @@
+import { API_URL } from '../config/api';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -15,8 +16,7 @@ export default function AuthForm() {
     const endpoint = isLogin ? 'login' : 'register';
     
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/${endpoint}`, {
-        method: 'POST',
+        const res = await fetch(`${API_URL}/api/auth/${endpoint}`, {        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });

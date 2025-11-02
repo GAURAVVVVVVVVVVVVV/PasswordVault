@@ -1,3 +1,4 @@
+import { API_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PasswordGenerator from './PasswordGenerator';
@@ -62,7 +63,7 @@ export default function VaultDashboard() {
   const fetchItems = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/vault', {
+      const res = await fetch(`${API_URL}/api/vault`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -86,8 +87,8 @@ export default function VaultDashboard() {
       const { encrypted, iv } = encryptData(formData);
 
       const url = editingItem 
-        ? `http://localhost:5000/api/vault/${editingItem._id}`
-        : 'http://localhost:5000/api/vault';
+      ? `${API_URL}/api/vault/${editingItem._id}`
+      : `${API_URL}/api/vault`;
       
       const method = editingItem ? 'PUT' : 'POST';
 
@@ -126,7 +127,7 @@ export default function VaultDashboard() {
 
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/vault/${id}`, {
+      await fetch(`${API_URL}/api/vault/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
